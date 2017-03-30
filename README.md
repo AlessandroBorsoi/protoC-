@@ -7,9 +7,6 @@ OpenGL:
 - [open.gl](https://open.gl/)
 - [OGLdev](http://ogldev.atspace.co.uk/)
 
-LWJGL:
-- [mattdesl/lwjgl-basics](https://github.com/mattdesl/lwjgl-basics/wiki)
-
 Time step: 
 - [deWiTTERS Game Loop](http://www.koonsolo.com/news/dewitters-gameloop/)
 - [Fixed-Time-Step Implementation](http://lspiroengine.com/?p=378)
