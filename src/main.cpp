@@ -1,13 +1,17 @@
-#include <stdio.h>
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
+#include <Game.h>
 
-const GLuint SCREEN_WIDTH = 800;
-const GLuint SCREEN_HEIGHT = 600;
+const GLuint WIDTH = 800;
+const GLuint HEIGHT = 600;
+Game game;
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 int main() {
     if (!glfwInit()) {
-        printf("failed to initialize GLFW.\n");
+        std::cout << "failed to initialize GLFW.\n";
         return -1;
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -16,26 +20,41 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-    GLFWwindow *window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "ProtoC++", nullptr, nullptr);
-    glfwMakeContextCurrent(window);
-    if (gl3wInit()) {
-        printf("failed to initialize OpenGL\n");
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "ProtoC++", nullptr, nullptr);
+    if (window == NULL) {
+        std::cout << "Failed to create the GLFW window\n";
         return -1;
     }
-    printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
+    glfwMakeContextCurrent(window);
+    if (gl3wInit()) {
+        std::cout << "failed to initialize OpenGL.\n";
+        return -1;
+    }
+    std::cout << "OpenGL " << glGetString(GL_VERSION) << ", GLSL " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+    const GLFWvidmode* videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    glfwSetWindowPos(window, (videoMode->width - WIDTH) / 2, (videoMode->height - HEIGHT) / 2);
+    glfwSetKeyCallback(window, keyCallback);
     glfwShowWindow(window);
-    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    game.init();
 
     while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        game.update(0);
+        game.render(0);
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
+    game.clear();
+    glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+        glfwSetWindowShouldClose(window, GL_TRUE);
 }

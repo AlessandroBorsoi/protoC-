@@ -2,6 +2,10 @@
 
 ## C++ version
 
+## Build
+
+Python is required to build gl3w before importing and linking the library in the project.
+
 OpenGL:
 - [Learn OpenGL](https://learnopengl.com/)
 - [open.gl](https://open.gl/)
