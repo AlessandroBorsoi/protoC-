@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <Texture.h>
+#include "Shader.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ class ResourceManager {
 private:
     ResourceManager();
     static map<string, Texture*> textures;
+    static map<string, Shader*> shaders;
 public:
     static void init();
     static void clear();

@@ -1,8 +1,8 @@
 #ifndef PROTOC_TEXTURE_H
 #define PROTOC_TEXTURE_H
 
-#include <string>
 #include <GLFW/glfw3.h>
+#include <string>
 
 using namespace std;
 
