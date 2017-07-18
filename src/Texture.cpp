@@ -3,6 +3,7 @@
 #include <iostream>
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include <stb_image.h>
 
 Texture::Texture(std::string name, int rows, int columns) {
@@ -16,12 +17,12 @@ Texture::~Texture() {}
 void Texture::load() {
     int comp;
     string path = "../resources/texture/" + this->name + ".png";
-    unsigned char* image = stbi_load(path.c_str(), &this->width, &this->height, &comp, STBI_rgb_alpha);
+    unsigned char * image = stbi_load(path.c_str(), &this->width, &this->height, &comp, STBI_rgb_alpha);
     if (image == nullptr) {
-        cout << "Failed to load the texture " << this->name << "\n";
+        cout << "Failed to load the texture " << this->name << endl;
         throw string("Failed to load the texture");
     }
-    cout << "Loading texture " << this->name << " in memory...\n";
+    cout << "Loading texture " << this->name << " in memory..." << endl;
     glGenTextures(1, &this->id);
     glBindTexture(GL_TEXTURE_2D, this->id);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

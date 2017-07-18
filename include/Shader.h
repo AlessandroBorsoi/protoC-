@@ -3,6 +3,8 @@
 
 #include <GLFW/glfw3.h>
 #include <string>
+#include <glm/detail/type_mat.hpp>
+#include <glm/gtc/type_ptr.inl>
 
 using namespace std;
 
@@ -14,6 +16,8 @@ public:
     Shader(string name);
     ~Shader();
     void load();
+    Shader & use();
+    void setMatrix4(const GLchar * name, const glm::mat4 & matrix);
 };
 
 #endif //PROTOC_SHADER_H

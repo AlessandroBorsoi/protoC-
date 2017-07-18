@@ -11,11 +11,12 @@ using namespace std;
 class ResourceManager {
 private:
     ResourceManager();
-    static map<string, Texture*> textures;
-    static map<string, Shader*> shaders;
+    static map<string, Texture *> textures;
+    static map<string, Shader *> shaders;
 public:
     static void init();
     static void clear();
+    static Shader * getShader(string name);
 };
 
 #endif //PROTOC_RESOURCEMANAGER_H

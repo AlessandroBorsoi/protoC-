@@ -10,9 +10,11 @@ void Game::init() {
     ResourceManager::init();
 }
 
-void Game::update(float dt) {}
+void Game::update(float dt) {
 
-void Game::render(float dt) {
+}
+
+void Game::render(float alpha) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }

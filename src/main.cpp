@@ -3,16 +3,16 @@
 #include <iostream>
 #include <Game.h>
 
-const GLuint WIDTH = 800;
-const GLuint HEIGHT = 600;
+using namespace std;
+
 Game game;
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void keyCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
 
 int main() {
     if (!glfwInit()) {
-        std::cout << "failed to initialize GLFW.\n";
-        return -1;
+        cout << "failed to initialize GLFW." << endl;
+        return EXIT_FAILURE;
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -20,19 +20,19 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "ProtoC++", nullptr, nullptr);
-    if (window == NULL) {
-        std::cout << "Failed to create the GLFW window\n";
-        return -1;
+    GLFWwindow * window = glfwCreateWindow(game.WIDTH, game.HEIGHT, "ProtoC++", nullptr, nullptr);
+    if (window == nullptr) {
+        cout << "Failed to create the GLFW window" << endl;
+        return EXIT_FAILURE;
     }
     glfwMakeContextCurrent(window);
     if (gl3wInit()) {
-        std::cout << "failed to initialize OpenGL.\n";
-        return -1;
+        cout << "failed to initialize OpenGL." << endl;
+        return EXIT_FAILURE;
     }
-    std::cout << "OpenGL " << glGetString(GL_VERSION) << ", GLSL " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-    const GLFWvidmode* videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    glfwSetWindowPos(window, (videoMode->width - WIDTH) / 2, (videoMode->height - HEIGHT) / 2);
+    cout << "OpenGL " << glGetString(GL_VERSION) << ", GLSL " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+    const GLFWvidmode * videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    glfwSetWindowPos(window, (videoMode->width - game.WIDTH) / 2, (videoMode->height - game.HEIGHT) / 2);
     glfwSetKeyCallback(window, keyCallback);
     glfwShowWindow(window);
     int width, height;
@@ -54,7 +54,7 @@ int main() {
     return 0;
 }
 
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void keyCallback(GLFWwindow * window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
         glfwSetWindowShouldClose(window, GL_TRUE);
 }
